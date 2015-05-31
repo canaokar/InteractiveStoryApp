@@ -1,11 +1,11 @@
 package com.chocodroid.interactivestory;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -26,10 +26,16 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 String name = mNameField.getText().toString();
-                Toast.makeText(MainActivity.this,name,Toast.LENGTH_SHORT).show();
+
+                startStory();
 
             }
         });
+    }
+
+    private void startStory() {
+
+        Intent intent = new Intent(this, StoryActivity.class);
     }
 
 
