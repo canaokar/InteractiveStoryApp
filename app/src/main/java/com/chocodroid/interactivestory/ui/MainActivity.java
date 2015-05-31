@@ -1,4 +1,4 @@
-package com.chocodroid.interactivestory;
+package com.chocodroid.interactivestory.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.chocodroid.interactivestory.R;
 
 
 public class MainActivity extends Activity {
@@ -33,7 +35,7 @@ public class MainActivity extends Activity {
                     Toast.makeText(MainActivity.this, "Please Enter Your Name To Proceed", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    startStory();
+                    startStory(name);
                 }
 
             }
@@ -41,9 +43,10 @@ public class MainActivity extends Activity {
     }
 
 
-    private void startStory() {
+    private void startStory(String name) {
 
         Intent intent = new Intent(this, StoryActivity.class);
+        intent.putExtra(getString(R.string.key_name), name);
         startActivity(intent);
     }
 
