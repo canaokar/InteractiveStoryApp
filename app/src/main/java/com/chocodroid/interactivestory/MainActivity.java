@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
 
     private EditText mNameField;
     private Button mButton;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +29,22 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 String name = mNameField.getText().toString();
-
-                startStory();
+                if (name.length()==0) {
+                    Toast.makeText(MainActivity.this, "Please Enter Your Name To Proceed", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    startStory();
+                }
 
             }
         });
     }
 
+
     private void startStory() {
 
         Intent intent = new Intent(this, StoryActivity.class);
+        startActivity(intent);
     }
 
 
