@@ -8,6 +8,21 @@ public class Choice {
     private String mText;
     private int mNextPage;
 
+    /*
+    Constructors for the Page class
+     */
+
+    public Choice(String text, int nextPage){
+
+        mText = text;
+        mNextPage = nextPage;
+
+    }
+
+    /*
+    Getters & Setters
+     */
+
     public String getText() {
         return mText;
     }
