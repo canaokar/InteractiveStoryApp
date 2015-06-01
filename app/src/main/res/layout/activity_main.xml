@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@android:color/white">
 
     <ImageView
         android:layout_width="match_parent"
@@ -22,7 +23,9 @@
         android:text="START YOUR ADVENTURE"
         android:id="@+id/startButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/titleImageView" />
+        android:layout_alignStart="@+id/titleImageView"
+        android:background="@android:color/white"
+        android:textColor="#FF3A8AEC"/>
 
     <EditText
         android:layout_width="match_parent"

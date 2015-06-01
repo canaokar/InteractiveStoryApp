@@ -9,6 +9,7 @@ public class Page {
     private String mText;
     private Choice mChoice1;
     private Choice mChoice2;
+    private boolean mIsFinal = false;
 
     /*
     Constructors for the Page class
@@ -62,5 +63,13 @@ public class Page {
 
     public void setChoice2(Choice choice2) {
         mChoice2 = choice2;
+    }
+
+    public boolean isFinal() {
+        return mIsFinal;
+    }
+
+    public void setIsFinal(boolean isFinal) {
+        mIsFinal = isFinal;
     }
 }
