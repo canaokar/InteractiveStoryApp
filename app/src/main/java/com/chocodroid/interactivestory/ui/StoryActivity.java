@@ -2,12 +2,28 @@ package com.chocodroid.interactivestory.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chocodroid.interactivestory.R;
+import com.chocodroid.interactivestory.model.Page;
+import com.chocodroid.interactivestory.model.Story;
 
 
 public class StoryActivity extends Activity {
+
+    private Story mStory = new Story();
+    private ImageView mImageView;
+    private TextView mTextView;
+    private Button mChoice1;
+    private Button mChoice2;
+    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,9 +31,43 @@ public class StoryActivity extends Activity {
         setContentView(R.layout.activity_story);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra(getString(R.string.key_name));
+        mName = intent.getStringExtra(getString(R.string.key_name));
 
+        mImageView = (ImageView) findViewById(R.id.storyImageView);
+        mTextView = (TextView) findViewById(R.id.storyTextView);
+        mChoice1 = (Button) findViewById(R.id.choiceButton1);
+        mChoice2 = (Button) findViewById(R.id.choiceButton2);
 
+        loadPage(0);
+        Toast.makeText(this, mName, Toast.LENGTH_SHORT).show();
+
+    }
+    private void loadPage(int choice){
+        Page page = mStory.getPage(choice);
+
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), page.getImageId(), null);
+        mImageView.setImageDrawable(drawable);
+
+        String pageText = page.getText();
+        //Add the name if placeholder included. Won't add if no placeholder
+        pageText = String.format(pageText,mName);
+        mTextView.setText(pageText);
+
+        mChoice1.setText(page.getChoice1().getText());
+        mChoice2.setText(page.getChoice2().getText());
+
+        mChoice1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mChoice2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
 }

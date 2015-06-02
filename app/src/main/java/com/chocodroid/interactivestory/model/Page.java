@@ -1,8 +1,5 @@
 package com.chocodroid.interactivestory.model;
 
-/**
- * Created by Chinmay Anaokar on 31-05-2015.
- */
 public class Page {
 
     private int mImageId;
@@ -72,4 +69,5 @@ public class Page {
     public void setIsFinal(boolean isFinal) {
         mIsFinal = isFinal;
     }
+
 }

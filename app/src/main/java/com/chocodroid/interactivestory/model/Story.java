@@ -2,9 +2,6 @@ package com.chocodroid.interactivestory.model;
 
 import com.chocodroid.interactivestory.R;
 
-/**
- * Created by Chinmay Anaokar on 31-05-2015.
- */
 public class Story {
 
     private Page[] mPages;
@@ -49,5 +46,9 @@ public class Story {
         mPages[6] = new Page(
                 R.mipmap.page6,
                 "You arrive home on Earth. While your mission was a success, you forever wonder what was sending that signal. Perhaps a future mission will be able to investigate...");
+    }
+
+    public Page getPage(int pageNumber){
+        return mPages[pageNumber];
     }
 }
