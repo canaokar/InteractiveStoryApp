@@ -35,7 +35,7 @@ public class StoryActivity extends Activity {
         Intent intent = getIntent();
         mName = intent.getStringExtra(getString(R.string.key_name));
         if (mName == null) {
-            mName = "Friend";
+            mName = "Name";
         }
 
         mImageView = (ImageView) findViewById(R.id.storyImageView);
@@ -44,9 +44,10 @@ public class StoryActivity extends Activity {
         mChoice2 = (Button) findViewById(R.id.choiceButton2);
 
         loadPage(0);
-
     }
+
     /*  Page Load Activity */
+
     private void loadPage(int choice) {
         mCurrentPage = mStory.getPage(choice);
 
@@ -61,7 +62,7 @@ public class StoryActivity extends Activity {
         if (mCurrentPage.isFinal()) {
 
             mChoice1.setVisibility(View.INVISIBLE);
-            mChoice2.setText("PLAY AGAIN");
+            mChoice2.setText(R.string.end_button_text);
             mChoice2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -70,6 +71,7 @@ public class StoryActivity extends Activity {
             });
 
         }
+
         else {
 
             mChoice1.setText(mCurrentPage.getChoice1().getText());
