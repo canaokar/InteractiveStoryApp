@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chocodroid.interactivestory.R;
 import com.chocodroid.interactivestory.model.Page;
@@ -18,12 +17,15 @@ import com.chocodroid.interactivestory.model.Story;
 
 public class StoryActivity extends Activity {
 
+
+    /*  Member Variable Declaration */
     private Story mStory = new Story();
     private ImageView mImageView;
     private TextView mTextView;
     private Button mChoice1;
     private Button mChoice2;
     private String mName;
+    private Page mCurrentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class StoryActivity extends Activity {
 
         Intent intent = getIntent();
         mName = intent.getStringExtra(getString(R.string.key_name));
+        if (mName == null) {
+            mName = "Friend";
+        }
 
         mImageView = (ImageView) findViewById(R.id.storyImageView);
         mTextView = (TextView) findViewById(R.id.storyTextView);
@@ -39,35 +44,53 @@ public class StoryActivity extends Activity {
         mChoice2 = (Button) findViewById(R.id.choiceButton2);
 
         loadPage(0);
-        Toast.makeText(this, mName, Toast.LENGTH_SHORT).show();
 
     }
-    private void loadPage(int choice){
-        Page page = mStory.getPage(choice);
+    /*  Page Load Activity */
+    private void loadPage(int choice) {
+        mCurrentPage = mStory.getPage(choice);
 
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(), page.getImageId(), null);
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), mCurrentPage.getImageId(), null);
         mImageView.setImageDrawable(drawable);
 
-        String pageText = page.getText();
+        String pageText = mCurrentPage.getText();
         //Add the name if placeholder included. Won't add if no placeholder
-        pageText = String.format(pageText,mName);
+        pageText = String.format(pageText, mName);
         mTextView.setText(pageText);
 
-        mChoice1.setText(page.getChoice1().getText());
-        mChoice2.setText(page.getChoice2().getText());
+        if (mCurrentPage.isFinal()) {
 
-        mChoice1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            mChoice1.setVisibility(View.INVISIBLE);
+            mChoice2.setText("PLAY AGAIN");
+            mChoice2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
 
-            }
-        });
-        mChoice2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        }
+        else {
 
-            }
-        });
+            mChoice1.setText(mCurrentPage.getChoice1().getText());
+            mChoice2.setText(mCurrentPage.getChoice2().getText());
+
+            mChoice1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int nextPage = mCurrentPage.getChoice1().getNextPage();
+                    loadPage(nextPage);
+                }
+            });
+            mChoice2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int nextPage = mCurrentPage.getChoice2().getNextPage();
+                    loadPage(nextPage);
+
+                }
+            });
+        }
     }
 
 }
